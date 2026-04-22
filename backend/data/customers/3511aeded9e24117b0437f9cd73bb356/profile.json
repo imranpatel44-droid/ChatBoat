@@ -1,0 +1,10 @@
+{
+  "customer_id": "3511aeded9e24117b0437f9cd73bb356",
+  "username": "testuser",
+  "name": "Test User",
+  "email": "test@test.com",
+  "password_hash": "$2b$12$PctpWgSx.tnGmlQx9pQIN.PzC8RB4.snhqtd1tiCKdXKkWiNuR.sy",
+  "website_url": "https://test.com",
+  "created_at": "2026-04-14T18:17:26.146380",
+  "plan": "free"
+}

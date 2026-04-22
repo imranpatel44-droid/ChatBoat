@@ -1,0 +1,26 @@
+{
+  "saketh@insightcrew.com": {
+    "customer_id": "3e7c91309c1e4a2d83cd09c0caf67f17",
+    "username": "saketh"
+  },
+  "contact@insightcrew.com": {
+    "customer_id": "fa07de35f9a44b2a8dd563cb048206b6",
+    "username": "contact"
+  },
+  "imran@insightcrew.com": {
+    "customer_id": "45724191cd3e4bf2bc0ce238b29752b2",
+    "username": "imran"
+  },
+  "imran2@insightcrew.com": {
+    "customer_id": "c02c51f7d1704b06b5e5d1e88ad0b94f",
+    "username": "imran2@insightcrew.com"
+  },
+  "developer@gmail.com": {
+    "customer_id": "72a8f74feb2b4a53bb8ab9908e11e6ab",
+    "username": "developer"
+  },
+  "test@test.com": {
+    "customer_id": "3511aeded9e24117b0437f9cd73bb356",
+    "username": "testuser"
+  }
+}

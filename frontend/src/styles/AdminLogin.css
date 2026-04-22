@@ -1,0 +1,157 @@
+/* Admin Login Page - Modern SaaS Design */
+/* Full-screen diagonal gradient: deep blue to rich purple */
+.admin-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a237e 0%, #7b1fa2 100%);
+  padding: 2rem;
+}
+
+/* Centered minimal login card - NO border/shadow */
+.admin-login-card {
+  background-color: transparent;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  border: none;
+  box-shadow: none;
+}
+
+/* Dark bold heading */
+.admin-login-card h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.5px;
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* Remove label - placeholder only design */
+.form-group label {
+  display: none;
+}
+
+/* Clean white input fields with subtle rounded corners */
+.form-group input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.form-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Error message */
+.error-message {
+  color: #ff5252;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Success message */
+.success-message {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #2e7d32;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Email validation error */
+.form-group div[style*="f44336"] {
+  color: #ff5252 !important;
+  font-size: 0.75rem !important;
+  margin-top: 0.5rem !important;
+  font-weight: 500;
+}
+
+/* Primary solid blue CTA button - Login */
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #1976d2;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 0.5rem;
+}
+
+.login-button:hover {
+  background-color: #1565c0;
+  transform: translateY(-1px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  background-color: #90a4ae;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Register link container */
+.register-link {
+  margin-top: 1rem;
+}
+
+/* Secondary flat cyan/teal button - Register New User */
+.register-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #00bcd4;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.register-button:hover {
+  background-color: #00acc1;
+  transform: translateY(-1px);
+}
+
+.register-button:active {
+  transform: translateY(0);
+}

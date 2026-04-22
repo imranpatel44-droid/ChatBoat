@@ -1,0 +1,30 @@
+# Web Framework
+flask==2.3.3
+flask-cors==4.0.0
+
+# AI/ML
+openai>=1.0.0
+numpy>=2.1.0
+scikit-learn>=1.5.0
+google-genai>=0.3.0
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# Google Drive API
+google-api-python-client==2.123.0
+
+# Google OAuth
+google-auth>=1.35.0
+google-auth-oauthlib>=1.2.0
+
+# Authentication & Security
+pyjwt==2.8.0
+bcrypt==4.1.2
+Flask-Limiter==3.5.0
+
+# Utilities
+python-dotenv==1.0.1
+requests==2.32.2
+apscheduler==3.10.4

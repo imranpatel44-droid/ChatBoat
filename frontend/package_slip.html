@@ -1,0 +1,74 @@
+<style type="text/css" media="all">
+    #lineItem tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+</style>
+
+<div style="font-family: Open Sans; font-size: 10pt; color: #333333; padding: 0 0.40in 0 0.55in;">
+    <div style="display:table;width:100%;">
+        <div style="float:left;width:50%;">
+            <div> %ScaledLogoImage% </div> <b>%CompanyName%</b> <br>
+            <div> <span id="tmp_org_address" style="white-space: pre-wrap;">%CompanyStreetAddress1%<br>%CompanyCity% %CompanyState% %CompanyPostalCode%<br>%CompanyCountry% </span> </div>
+        </div>
+        <div style="float:right;width:50%;text-align:right;">
+            <span style="font-size: 28pt;color: #000000;">Package</span> <br>
+            <span style="font-size: 10pt;color: #817d7d;" id="tmp_entity_number"><b>Package# %PKG_Number%</b></span>
+        </div>
+    </div>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 30px; margin-bottom: 30px; font-size: 10pt; color: #333;word-wrap: break-word;border-top: 3px solid #F0F0F0;border-bottom: 3px solid #F0F0F0;">
+        <tbody>
+        <tr style="font-size: 12pt;">
+            <td style="padding: 12px 8px;"><strong>Package#</strong><br> %PKG_Number%</td>
+            <td style="padding: 10px 8px;"><strong>Order Date</strong><br> %SO_Date%</td>
+            <td style="padding: 10px 8px;"><strong>Package Date</strong><br> %PKG_Date%</td>
+            <td style="padding: 10px 8px;"><strong>Sales Order#</strong><br> %SO_Number%</td>
+            <td style="padding: 8px 10px 8px 0px;width: 20%;">
+                <div style="background-color: #eee; text-align: center;font-weight: bold;">
+                    <div>Total Qty</div>
+                    <div>%PKG_TotalQty%</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;margin-top:30px;table-layout:fixed;border-spacing: 0;border-collapse: collapse;">
+        <tbody>
+        <tr>
+            <td style="width:50%;vertical-align:bottom;word-wrap: break-word;">
+                <div> <label style="font-size: 10pt;color: #817d7d;" id="tmp_billing_address_label">Bill To</label>
+                    <br>%CustomerName%<br>
+                    <span style="white-space: pre-wrap;" id="tmp_billing_address">%CustomerBAddress%<br>%CustomerBCity%, %CustomerBState%<br>%CustomerBCountry%</span>
+                </div>
+            </td>
+            <td style="width:50%;vertical-align:bottom;word-wrap: break-word;">
+                <div> <label style="font-size: 10pt;color: #817d7d;" id="tmp_billing_address_label">Ship To</label>
+                    <br>%CustomerName%<br>
+                    <span style="white-space: pre-wrap;" id="tmp_billing_address">%CustomerSAddress%<br>%CustomerSCity%, %CustomerSState%<br>%CustomerSCountry%</span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; margin-top: 30px; border-collapse: collapse; font-size: 10pt;">
+        <thead>
+        <tr style="background-color: #3c3d3a; color: #ffffff;">
+            <th style="padding: 5px 10px; text-align: left;">Item &amp; Description</th>
+            <th style="padding: 5px 10px; text-align: right;">Qty</th>
+        </tr>
+        </thead>
+        <tbody id="lineitem">
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #e3e3e3;"> <b>%ItemName%</b><br>
+                <span style="color: #727272;">%ItemDescription%</span> </td>
+            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #e3e3e3;">%ItemQty%</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 50px;">
+        <div style="font-size: 10pt; color: #817d7d;">Notes</div>
+        <div style="margin-top: 7px; font-size: 8pt; white-space: pre-wrap;">%PKG_Notes%</div>
+    </div>
+</div>

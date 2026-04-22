@@ -1,0 +1,5 @@
+{
+  "client_id": "459613327396-uaqe0ltggkvfrpgk81di4g7h0ped18hu.apps.googleusercontent.com",
+  "client_secret": "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",
+  "redirect_uri": "http://localhost:5000/backend/api/auth/google/callback"
+}
