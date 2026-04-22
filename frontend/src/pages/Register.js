@@ -101,7 +101,7 @@ const Register = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/backend/api/register', {
+      const response = await axios.post('https://chatboat-1-e4xt.onrender.com/register', {
         username: userData.username,
         email: userData.email,
         password: userData.password,
