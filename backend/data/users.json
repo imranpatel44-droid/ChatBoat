@@ -22,5 +22,9 @@
   "test@test.com": {
     "customer_id": "3511aeded9e24117b0437f9cd73bb356",
     "username": "testuser"
+  },
+  "imranpatel1@gmail.com": {
+    "customer_id": "4bdd85bcb74b4cf0a1d4fbb8ba844e67",
+    "username": "imranpatel1@gmail.com"
   }
 }
