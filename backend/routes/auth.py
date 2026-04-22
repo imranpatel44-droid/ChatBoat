@@ -269,4 +269,3 @@ def admin_login():
 def admin_logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('auth.admin_login'))
-```
