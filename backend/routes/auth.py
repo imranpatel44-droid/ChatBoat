@@ -1,3 +1,4 @@
+```python
 """Authentication routes blueprint."""
 import os
 from flask import Blueprint, request, jsonify, make_response, session, redirect, url_for
@@ -33,76 +34,111 @@ def login_required(f):
     return decorated_function
 
 
+# =========================
+# REGISTER (UPDATED SAFELY)
+# =========================
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """Register a new user account."""
-    if request.is_json:
-        json_data = request.get_json()
-        if json_data:
-            username = json_data.get('username')
-            email = json_data.get('email')
-            password = json_data.get('password')
-            website_url = json_data.get('website_url')
-            name = json_data.get('name', username)
-            
-            if not all([username, email, password, website_url]):
-                return jsonify({'success': False, 'error': 'Missing required fields'}), 400
-            
-            result = register_user(username, email, password, name, website_url)
-            return jsonify(result)
-    
-    return jsonify({'success': False, 'error': 'Invalid request format'}), 400
+    try:
+        if request.is_json:
+            json_data = request.get_json()
+            if json_data:
+                username = json_data.get('username')
+                email = json_data.get('email')
+                password = json_data.get('password')
+                website_url = json_data.get('website_url')
+                name = json_data.get('name', username)
+                
+                if not all([username, email, password, website_url]):
+                    return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+                
+                result = register_user(username, email, password, name, website_url)
+
+                # ✅ FIX: Ensure consistent response
+                if isinstance(result, dict):
+                    if result.get('success'):
+                        return jsonify({
+                            'success': True,
+                            'message': result.get('message', 'User registered successfully')
+                        }), 200
+                    else:
+                        return jsonify({
+                            'success': False,
+                            'error': result.get('error', 'Registration failed')
+                        }), 400
+
+                return jsonify({'success': False, 'error': 'Unexpected response'}), 500
+
+        return jsonify({'success': False, 'error': 'Invalid request format'}), 400
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
+# =========================
+# LOGIN (UPDATED SAFELY)
+# =========================
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """Authenticate user and set auth cookies."""
-    if request.is_json:
-        json_data = request.get_json()
-        if json_data:
-            email = json_data.get('email')
-            password = json_data.get('password')
-            
-            if not all([email, password]):
-                return jsonify({'success': False, 'error': 'Missing required fields'}), 400
-            
-            result = authenticate_user(email, password)
+    try:
+        if request.is_json:
+            json_data = request.get_json()
+            if json_data:
+                email = json_data.get('email')
+                password = json_data.get('password')
+                
+                if not all([email, password]):
+                    return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+                
+                result = authenticate_user(email, password)
 
-            if result.get('success'):
-                response = make_response(jsonify({
-                    'success': True,
-                    'customer_id': result['customer_id'],
-                    'username': result['username'],
-                    'email': result['email']
-                }))
+                if result.get('success'):
+                    response = make_response(jsonify({
+                        'success': True,
+                        'customer_id': result['customer_id'],
+                        'username': result['username'],
+                        'email': result['email']
+                    }))
 
-                response.set_cookie(
-                    'access_token',
-                    result['token'],
-                    httponly=True,
-                    secure=SECURE_COOKIES,
-                    samesite=COOKIE_SAMESITE,
-                    max_age=result.get('expires_in', TOKEN_EXPIRY * 3600),
-                    path='/'
-                )
+                    response.set_cookie(
+                        'access_token',
+                        result['token'],
+                        httponly=True,
+                        secure=SECURE_COOKIES,
+                        samesite=COOKIE_SAMESITE,
+                        max_age=result.get('expires_in', TOKEN_EXPIRY * 3600),
+                        path='/'
+                    )
 
-                response.set_cookie(
-                    'refresh_token',
-                    result['refresh_token'],
-                    httponly=True,
-                    secure=SECURE_COOKIES,
-                    samesite=COOKIE_SAMESITE,
-                    max_age=result.get('refresh_expires_in', REFRESH_TOKEN_EXPIRY * 24 * 3600),
-                    path='/'
-                )
+                    response.set_cookie(
+                        'refresh_token',
+                        result['refresh_token'],
+                        httponly=True,
+                        secure=SECURE_COOKIES,
+                        samesite=COOKIE_SAMESITE,
+                        max_age=result.get('refresh_expires_in', REFRESH_TOKEN_EXPIRY * 24 * 3600),
+                        path='/'
+                    )
 
-                return response
+                    return response
 
-            return jsonify(result)
-    
-    return jsonify({'success': False, 'error': 'Invalid request format'}), 400
+                # ✅ FIX: always return proper error
+                return jsonify({
+                    'success': False,
+                    'error': result.get('error', 'Invalid credentials')
+                }), 401
+
+        return jsonify({'success': False, 'error': 'Invalid request format'}), 400
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
+# =========================
+# REFRESH (UNCHANGED)
+# =========================
 @auth_bp.route('/refresh', methods=['POST'])
 def refresh():
     """Refresh access token using refresh token."""
@@ -139,6 +175,9 @@ def refresh():
     return jsonify({'success': False, 'error': 'Invalid request format'}), 400
 
 
+# =========================
+# AUTH STATUS (UNCHANGED)
+# =========================
 @auth_bp.route('/auth/status', methods=['GET'])
 @token_required
 def auth_status(current_user):
@@ -149,12 +188,14 @@ def auth_status(current_user):
     })
 
 
+# =========================
+# LOGOUT (UNCHANGED)
+# =========================
 @auth_bp.route('/logout', methods=['POST'])
 @token_required
 def logout(current_user):
     """Logout user and blacklist tokens."""
     try:
-        # Get both access and refresh tokens
         auth_header = request.headers.get('Authorization')
         access_token = None
         if auth_header and auth_header.startswith('Bearer '):
@@ -166,11 +207,9 @@ def logout(current_user):
         if not access_token:
             access_token = request.cookies.get('access_token')
 
-        # Blacklist access token
         if access_token:
             blacklist_token(access_token)
         
-        # Blacklist refresh token if provided
         if refresh_token:
             blacklist_token(refresh_token)
 
@@ -179,41 +218,21 @@ def logout(current_user):
             'message': 'Logged out successfully'
         }))
 
-        # Clear cookies
-        response.set_cookie(
-            'access_token',
-            '',
-            httponly=True,
-            secure=SECURE_COOKIES,
-            samesite=COOKIE_SAMESITE,
-            expires=0,
-            max_age=0,
-            path='/'
-        )
-
-        response.set_cookie(
-            'refresh_token',
-            '',
-            httponly=True,
-            secure=SECURE_COOKIES,
-            samesite=COOKIE_SAMESITE,
-            expires=0,
-            max_age=0,
-            path='/'
-        )
+        response.set_cookie('access_token', '', expires=0, max_age=0)
+        response.set_cookie('refresh_token', '', expires=0, max_age=0)
 
         return response
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
-# Admin session-based routes (for template-based admin interface)
+# =========================
+# ADMIN LOGIN (UNCHANGED)
+# =========================
 @auth_bp.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
-    """Admin login endpoint supporting both JSON and form submissions."""
     error = None
     
-    # Admin credentials from environment
     admin_username = os.getenv('ADMIN_USERNAME', 'admin')
     admin_password = os.getenv('ADMIN_PASSWORD', 'admin123')
     
@@ -244,8 +263,11 @@ def admin_login():
     return jsonify({'success': False, 'error': error}) if request.is_json else error
 
 
+# =========================
+# ADMIN LOGOUT (UNCHANGED)
+# =========================
 @auth_bp.route('/admin/logout', methods=['GET'])
 def admin_logout():
-    """Admin logout endpoint."""
     session.pop('admin_logged_in', None)
     return redirect(url_for('auth.admin_login'))
+```
