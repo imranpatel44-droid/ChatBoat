@@ -1,4 +1,3 @@
-```python
 """Authentication routes blueprint."""
 import os
 from flask import Blueprint, request, jsonify, make_response, session, redirect, url_for
